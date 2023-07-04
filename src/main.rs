@@ -1,8 +1,9 @@
 use std::env;
+use std::net::IpAddr;
 
 struct Arguments {
     flag: String,
-    ip: Ip,
+    ipaddr: IpAddr,
     threads: u16,
 }
 
