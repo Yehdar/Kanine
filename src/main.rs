@@ -25,6 +25,9 @@ impl Arguments {
             let flag = args[1].clone();
             if flag.contains("-h") || flag.contains("-help") && args.len() == 2{
                 println!("Usage: -j to select how many threads you want \r\n -h or -help to show this help message")
+                return Err("help");
+            } else if flag.contains("-h") || flag.contains("-help"){
+                return Err("too many arguments");
             }
         }
     }
