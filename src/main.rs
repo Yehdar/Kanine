@@ -1,5 +1,6 @@
 use std::env;
 use std::net::IpAddr;
+use std::str::FromStr;
 
 struct Arguments {
     flag: String,
@@ -17,7 +18,10 @@ impl Arguments {
         } else if args.len() > 4 {
             return Err("too many arguments");
         }
-       
+        let f = args[1].clone();
+        if let Ok(ipaddr) = IpAddr::from_str(&f){
+            return Ok(Arguments {flag: String::from(""), ipaddr, threads: 4})
+        }
     }
 }
 
