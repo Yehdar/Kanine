@@ -21,6 +21,11 @@ impl Arguments {
         let f = args[1].clone();
         if let Ok(ipaddr) = IpAddr::from_str(&f){
             return Ok(Arguments {flag: String::from(""), ipaddr, threads: 4})
+        } else {
+            let flag = args[1].clone();
+            if flag.contains("-h") || flag.contains("-help") && args.len() == 2{
+                println!("Usage: -j to select how many threads you want \r\n -h or -help to show this help message")
+            }
         }
     }
 }
