@@ -1,9 +1,12 @@
 use std::env;
-use std::net::IpAddr;
+use std::io::{self, Write}
+use std::net::{IpAddr, TcpStream};
 use std::str::FromStr;
 use std::process;
 use std::sync::mpsc::{Sender, channel};
 use std::thread;
+
+const MAX: u16 = 65535;
 
 struct Arguments {
     flag: String,
@@ -45,6 +48,18 @@ impl Arguments {
                 return Err("invalid syntax");
             } 
         }
+    }
+}
+
+fn scan(tx: Sender<u16>, start_port: u16, addr: IpAddr, num_threads: u16){
+    let mut port: u16 = start_port + 1;
+    loop {
+        match TcpStream::connect((addr, port)) {
+            Ok(_) => {
+                print!(".")
+            }
+        }
+        Err(_) => {}
     }
 }
 
