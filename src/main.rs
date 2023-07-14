@@ -99,4 +99,10 @@ fn main() {
     for p in rx {
         out.push(p);
     }
+
+    println!("");
+    out.sort();
+    for v in out {
+        println!("{} is open", v);
+    }
 }
