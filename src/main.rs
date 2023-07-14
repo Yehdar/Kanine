@@ -26,7 +26,7 @@ impl Arguments {
         }
         let f = args[1].clone();
         if let Ok(ipaddr) = IpAddr::from_str(&f){
-            return Ok(Arguments {flag: String::from(""), ipaddr, threads: 4})
+            return Ok(Arguments {flag: String::from(""), ipaddr, threads: 4});
         } else {
             let flag = args[1].clone();
             if flag.contains("-h") || flag.contains("-help") && args.len() == 2{
@@ -58,7 +58,7 @@ fn scan(tx: Sender<u16>, start_port: u16, addr: IpAddr, num_threads: u16){
             Ok(_) => {
                 print!(".");
                 io::stdout().flush().unwrap();
-                tx.send(port).unwrap()
+                tx.send(port).unwrap();
             }
             Err(_) => {}
         }
@@ -78,7 +78,7 @@ fn main() {
             process::exit(0);
         } else {
             eprintln!("{} problem parsing arguments: {}", program, err);
-            process::exit(0);
+            process::exit(1);
         }
     });
 
@@ -94,15 +94,19 @@ fn main() {
         });
     }
 
-    let mut out = vec![];
+    let mut out = Vec::<u16>::new();
     drop(tx);
     for p in rx {
         out.push(p);
     }
 
-    println!("");
-    out.sort();
-    for v in out {
-        println!("{} is open", v);
+    println!();
+    if out.is_empty(){
+        println!("No open ports found.");
+    } else {
+        out.sort();
+        for v in out {
+            println!("{} is open", v);
+        }
     }
 }
